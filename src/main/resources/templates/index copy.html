@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dictionary Entry</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .dictionary-entry {
+            border: 1px solid #000;
+            padding: 20px;
+            width: 500px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .definitions {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .definition {
+            display: flex;
+            align-items: center;
+        }
+
+        .american-definition {
+            font-size: 1.2em;
+        }
+
+        .uk-definition {
+            font-size: 1em;
+            border-left: 1px solid #ccc;
+            padding-left: 10px;
+            margin-top: 5px;
+        }
+
+        .audio-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            flex: 1;
+        }
+
+        .audio-buttons button {
+            margin-top: 5px;
+        }
+
+        .pronunciation {
+            font-style: italic;
+        }
+
+        .section {
+            margin-top: 10px;
+        }
+
+        .synonyms-translations {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .synonyms {
+            flex: 1;
+            border-left: 1px solid #ccc;
+            padding-left: 10px;
+        }
+
+        .synonyms ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+
+        .translations {
+            flex: 1;
+            border-left: 1px solid #ccc;
+            padding-left: 10px;
+        }
+
+        .translations ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .translations img {
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+        }
+
+        .divider-horizontal {
+            border-top: 1px solid #ccc;
+            margin: 10px 0;
+        }
+
+        .divider-horizontal-inline {
+            border-top: 1px solid #ccc;
+            display: inline-block;
+            width: 15%;
+            /* Reduced width */
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+
+        .divider-vertical {
+            border-left: 1px solid #ccc;
+            height: 100px;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dictionary-entry">
+        <div class="header">
+            <div class="definitions">
+                <div class="definition american-definition">
+                    <img src="us-flag.png" alt="US Flag">
+                    <span>color</span>
+                    <span>[ˈkʌlər]</span>
+                </div>
+                <div class="definition uk-definition">
+                    <img src="uk-flag.png" alt="UK Flag">
+                    <span>colour</span>
+                    <span>[ˈkʌlər]</span>
+                </div>
+            </div>
+            <div class="divider-vertical"></div>
+            <div class="audio-buttons">
+                <button th:text="${variavel}"></button>
+                <button>Audio 2</button>
+                <button>Audio 3</button>
+            </div>
+        </div>
+        <div class="divider-horizontal"></div>
+        <div class="section">
+            <h3><span class="divider-horizontal-inline"></span> Noun</h3>
+            <p></p>
+        </div>
+        <div class="section">
+            <h3><span class="divider-horizontal-inline"></span> Verb (to color, transitive)</h3>
+            <p>To impart color to...</p>
+            <p><i>"She colored her drawing."</i></p>
+        </div>
+        <div class="synonyms-translations">
+            <div class="synonyms section">
+                <h4>Synonyms</h4>
+                <ul>
+                    <li>hue</li>
+                    <li>paint</li>
+                    <li>glow</li>
+                    <li>dye</li>
+                </ul>
+            </div>
+            <div class="translations section">
+                <h4>Translations</h4>
+                <ul>
+                    <li><img src="flag-pt.png" alt="Portuguese Flag">cor</li>
+                    <li><img src="flag-es.png" alt="Spanish Flag">color</li>
+                    <li><img src="flag-it.png" alt="Italian Flag">cobre</li>
+                </ul>
+            </div>
+        </div>
+        <div class="section">
+            <h4>Related Terms</h4>
+            <ul>
+                <li>color (standard)</li>
+                <li>color (RGB)</li>
+                <li>color (models)</li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>
