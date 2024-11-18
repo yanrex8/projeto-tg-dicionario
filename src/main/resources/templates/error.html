@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Learning - Dictionary Entry</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            background-color: #e4ecf4;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #185c84;
+            color: white;
+            padding: 10px;
+        }
+
+        .nav-item a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .searchbar {
+            padding: 5px;
+        }
+
+        .search-button {
+            background-color: #185c84;
+            color: white;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        .search-button i {
+            font-size: 1.2em;
+        }
+
+        .breadcrumb {
+            background-color: #f1f1f1;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        .breadcrumb a {
+            text-decoration: none;
+            color: #333;
+            margin-right: 5px;
+        }
+
+        .container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            background-color: #f4f4f4;
+            padding: 20px;
+            width: 200px;
+            overflow-y: auto;
+            border-radius: 1em;
+            border: 2px solid #b4b4b4;
+            margin: 6px;
+        }
+
+        .sidebar h2 {
+            font-size: 1.5em;
+            margin-top: 0;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar li ul {
+            list-style: disc;
+            padding-left: 20px;
+        }
+
+        .workspace {
+            flex: 1;
+            padding: 6px;
+            overflow-y: auto;
+        }
+
+        .dictionary-entry {
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 1em;
+            overflow-y: auto;
+            border: 2px solid #b4b4b4;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .definitions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .definition {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .text-block {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .us-definition {
+            font-size: 1.5em;
+        }
+
+        .us-phonetics {
+            font-size: 1.1em;
+        }
+
+        .uk-definition {
+            font-size: 1.1em;
+            padding-left: 10px;
+            margin-top: 5px;
+        }
+
+        .uk-phonetics {
+            font-size: 0.9em;
+            padding-left: 10px;
+            margin-top: 5px;
+        }
+
+        .uk-vertical-bar {
+            border-left: 1px solid #555;
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .audio-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            flex: 1;
+        }
+
+        .audio-buttons button {
+            margin-top: 5px;
+        }
+
+        .pronunciation {
+            font-style: italic;
+        }
+
+        .section {
+            margin-top: 10px;
+        }
+
+        .synonyms-translations {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .synonyms {
+            flex: 1;
+            border-left: 1px solid #555;
+            padding-left: 10px;
+        }
+
+        .synonyms ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+
+        .translations {
+            flex: 1;
+            border-left: 1px solid #555;
+            padding-left: 10px;
+            align-items: center;
+        }
+
+        .translations ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .translations img {
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+        }
+
+        .divider-horizontal {
+            border-top: 1px solid #555;
+            margin: 10px 0;
+        }
+
+        .divider-horizontal-inline {
+            border-top: 3px solid #555;
+            display: inline-block;
+            width: 15%;
+            vertical-align: middle;
+            margin-right: 10px;
+            max-width: 65px;
+        }
+
+        .divider-vertical {
+            border-left: 1px solid #555;
+            height: 115px;
+            margin: 0 10px;
+        }
+
+        .circular-img {
+            border: 1px solid #555;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .us-img {
+            width: 2em;
+            height: 2em;
+        }
+
+        .uk-img {
+            width: 1.5em;
+            height: 1.5em;
+        }
+
+        .translation-img {
+            width: 1.2em;
+            height: 1.2em;
+        }
+
+        .related-links {
+            background-color: #f4f4f4;
+            padding: 20px;
+            width: 200px;
+            overflow-y: auto;
+            border-radius: 1em;
+            border: 2px solid #b4b4b4;
+            margin: 6px;
+        }
+
+        .related-links h3 {
+            font-size: 1.5em;
+            margin-top: 0;
+        }
+
+        .related-links ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .related-links li {
+            margin-bottom: 10px;
+        }
+
+        .related-links li a {
+            text-decoration: none;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-item"><a href="#">Home</a></div>
+        <div class="nav-item"><a href="#">Courses</a></div>
+        <div class="nav-item"><a href="#">Dictionary</a></div>
+        <div class="nav-item"><a href="#">Practice</a></div>
+        <div class="search-container">
+            <input type="text" id="searchInput" class="searchbar" placeholder="Search..."> <button class="search-button"
+                onclick="search()">
+                <button class="search-button" onclick="search()"><i class="fas fa-search"></i></button>
+        </div>
+    </nav>
+    <div class="breadcrumb">
+        <a href="#">Home</a> > <a href="#">English</a> > <a href="#">Dictionary</a> > Not found
+    </div>
+    <div class="container">
+        <aside class="sidebar">
+            <h2>English language</h2>
+            <div class="divider-horizontal"></div>
+            <ul>
+                <li>Grammar
+                    <ul>
+                        <li>Tenses</li>
+                        <li>Verbs</li>
+                        <li>Pronouns</li>
+                        <li>Articles</li>
+                    </ul>
+                </li>
+                <li>Extras
+                    <ul>
+                        <li>Expressions</li>
+                        <li>Idioms</li>
+                        <li>Vocabulary Themes</li>
+                    </ul>
+                </li>
+            </ul>
+        </aside>
+        <main class="workspace">
+            <div class="dictionary-entry">
+                <h3>Not found.</h3>
+                <p th:text="${e}"></p>
+            </div>
+        </main>
+        <aside class="related-links">
+            <h3>related tools & links</h3>
+            <div class="divider-horizontal"></div>
+            <ul>
+                <li><a href="https://www.dictionary.com" target="_blank">Dictionary.com (entries)</a></li>
+                <li><a href="https://www.thesaurus.com" target="_blank">Thesaurus.com (synonyms)</a></li>
+                <li><a href="https://www.lingolia.com" target="_blank">Lingolia.com (grammar)</a></li>
+                <li><a href="https://www.duolingo.com" target="_blank">Duolingo (practicing)</a></li>
+            </ul>
+        </aside>
+    </div>
+    <script>
+        function search() {
+            var query = document.getElementById("searchInput").value;
+            if (query) {
+                window.location.href = "/?usWord=" + encodeURIComponent(query);
+            }
+        }
+        document.getElementById("searchInput").addEventListener("keydown", function (event) {
+            if (event.keyCode === 13) {
+                search();
+
+            }
+        }); </script>
+</body>
+
+</html>

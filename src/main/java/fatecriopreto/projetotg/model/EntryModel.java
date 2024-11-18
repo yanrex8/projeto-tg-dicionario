@@ -6,7 +6,7 @@ import java.util.Map;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "projetotg")
+@Document(collection = "projetotg_merged")
 public class EntryModel
 {
 	@Id
@@ -26,11 +26,12 @@ public class EntryModel
 	// public String prepositionDefinition;
 	// public String pronounDefinition;
 	private List<String> synonyms;
+	private List<String> antonyms;
 	private Map<String, String> translations;
 
 	public EntryModel(String id, String usWord, String usPronounciation, String ukWord, String ukPronounciation,
 			String nounDefinition, String nounExample, String verbDefinition, String verbExample,
-			String adjectiveDefinition, String adjectiveExample, List<String> synonyms,
+			String adjectiveDefinition, String adjectiveExample, List<String> synonyms, List<String> antonyms,
 			Map<String, String> translations)
 	{
 		this.id = id;
@@ -45,8 +46,21 @@ public class EntryModel
 		this.adjectiveDefinition = adjectiveDefinition;
 		this.adjectiveExample = adjectiveExample;
 		this.synonyms = synonyms;
+		this.antonyms = antonyms;
 		this.translations = translations;
 	}
+
+	// public EntryModel(String id, String usWord, String usPronounciation, String ukWord, String ukPronounciation,
+	// 		List<String> synonyms, Map<String, String> translations)
+	// {
+	// 	this.id = id;
+	// 	this.usWord = usWord;
+	// 	this.usPronounciation = usPronounciation;
+	// 	this.ukWord = ukWord;
+	// 	this.ukPronounciation = ukPronounciation;
+	// 	this.synonyms = synonyms;
+	// 	this.translations = translations;
+	// }
 
 	public String getId()
 	{
@@ -166,6 +180,16 @@ public class EntryModel
 	public void setSynonyms(List<String> synonyms)
 	{
 		this.synonyms = synonyms;
+	}
+
+	public List<String> getAntonyms()
+	{
+		return antonyms;
+	}
+
+	public void setAntonyms(List<String> antonyms)
+	{
+		this.antonyms = antonyms;
 	}
 
 	public Map<String, String> getTranslations()
